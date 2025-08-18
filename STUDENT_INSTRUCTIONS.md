@@ -5,40 +5,33 @@
 1. You've already accepted the GitHub Classroom assignment and have your own repository.
 
 2. Clone your personal repository:
-   ```bash
+
+    ```
     git clone https://github.com/int-ai-ds-25-08/course-materials-YOUR_USERNAME.git
     cd course-materials-YOUR_USERNAME
     ```
    
 ## Set up the course upstream to receive new materials:
 
-   ```bash
     git remote add upstream https://github.com/aitechinstitute/int-ai-ds-25-08-template.git
     git remote -v  # Verify you see both 'origin' (your repo) and 'upstream' (course template)
-   ```
 
 ## Weekly Workflow
 Before Each Class - Get New Materials:
 ### Fetch the latest materials from the course
-    ```bash
     git fetch upstream
     git merge upstream/main -m "Merge week X materials"
-    ```
 
 ### If there are conflicts (rare), keep your version:
-    ```bash
     git checkout --ours .
     git add .
     git commit -m "Resolved conflicts, keeping my work"
-    ```
     
 ## During/After Class - Save Your Work:
 ### Save your notes and work
-    ```bash
     git add .
     git commit -m "My notes from week X"
     git push origin main
-    ```
 
 ### Important Tips
 
