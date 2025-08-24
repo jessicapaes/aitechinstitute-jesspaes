@@ -5,7 +5,7 @@ Follow these steps carefully to stay up to date.
 
 ---
 
-## 🔄 1. One-time Setup (done once per repo)
+## 🔄 1. One-time Setup
 
 Tell Git where to fetch the official course materials from:
 
@@ -23,7 +23,7 @@ git remote -v
 
 ## 📥 2. Getting the Latest Course Materials (every time new content is released)
 
-1. **Save your work**  
+1. **First Save your work from before (if you have any)**  
    ```bash
    git add -A
    git commit -m "WIP before syncing"
@@ -33,9 +33,6 @@ git remote -v
    ```bash
    git pull --rebase upstream main
    ```
-
-   ⚠️ If you see conflicts, resolve them (keep your work + new materials).  
-   If stuck → ask for help.
 
 3. **Update your own repo**  
    ```bash
