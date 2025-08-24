@@ -2,14 +2,20 @@ name: Sync main to starter
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch: {}
+    branches: [ main ]   # ✅ instant on push to main
+  workflow_dispatch: {}   # manual run button
 
 permissions:
-  contents: read   # GITHUB_TOKEN for this repo
+  contents: read
+
+concurrency:
+  group: sync-to-starter-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   sync:
+    # ✅ Only run in the source repo
+    if: github.repository == 'aitechinstitute/int-ai-ds-25-08-template'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source repo
@@ -24,20 +30,19 @@ jobs:
 
       - name: Add starter remote (with token)
         env:
-          STARTER_PUSH_TOKEN: ${{ secrets.STARTER_PUSH_TOKEN }}
+          TOKEN: ${{ secrets.STARTER_PUSH_TOKEN }}
         run: |
-          git remote add starter "https://x-access-token:${STARTER_PUSH_TOKEN}@github.com/aitechinstitute/int-ai-ds-25-08-course-materials-all-int-ai-ds-25-08-template.git"
-          git remote -v
+          git remote add starter "https://x-access-token:${TOKEN}@github.com/aitechinstitute/int-ai-ds-25-08-course-materials-all-int-ai-ds-25-08-template.git"
+          git fetch starter --prune
 
-      - name: Push main → starter/main
+      - name: Push main to starter/main
         run: |
-          git checkout main
-          git push starter main:main --force-with-lease
+          git push starter refs/heads/main:refs/heads/main --force-with-lease
 
-      # Optional: push release tags like week-*
+      # Optional: publish tags like week-*
       - name: Push weekly tags (optional)
         if: always()
         run: |
-          if [ "$(git tag -l 'week-*')" != "" ]; then
+          if [ -n "$(git tag -l 'week-*')" ]; then
             git push starter --tags
           fi
