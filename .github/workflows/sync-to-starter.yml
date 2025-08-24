@@ -2,8 +2,8 @@ name: Sync main to starter
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch: {}
+    branches: [ main ]              # instant replication on push to main
+  workflow_dispatch: {}              # manual run button
 
 permissions:
   contents: read
@@ -14,39 +14,39 @@ concurrency:
 
 jobs:
   sync:
-    if: github.repository == 'aitechinstitute/int-ai-ds-25-08-template'
+    if: github.repository == 'aitechinstitute/int-ai-ds-25-08-template'   # guard: never run on forks/starter
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source (no bot creds)
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          persist-credentials: false
+          persist-credentials: false   # 🔴 important: do NOT install GITHUB_TOKEN
 
       - name: Configure Git
         run: |
           git config user.name "starter-sync-bot"
           git config user.email "starter-sync-bot@users.noreply.github.com"
 
-      # Route ALL https://github.com/* through your PAT
+      # Route ALL github.com traffic through your PAT (so no bot token is used)
       - name: Use PAT for all GitHub remotes
         env:
           TOKEN: ${{ secrets.STARTER_PUSH_TOKEN }}
         run: |
           git config --global url."https://x-access-token:${TOKEN}@github.com/".insteadOf "https://github.com/"
 
-      # 🔧 Create a named remote and FETCH to create refs/remotes/starter/main
-      - name: Add 'starter' remote and fetch
-        run: |
-          git remote add starter https://github.com/aitechinstitute/int-ai-ds-25-08-course-materials-all-int-ai-ds-25-08-template.git
-          git fetch starter --prune
-
-      # ✅ Lease-safe push now that we have fresh remote-tracking refs
       - name: Push main → starter/main
         run: |
+          # Add the target repo as a remote
+          git remote add starter https://github.com/aitechinstitute/int-ai-ds-25-08-course-materials-all-int-ai-ds-25-08-template.git
+          
+          # Fetch the current state to make force-with-lease work
+          git fetch starter main
+          
+          # Push with lease (now safe because we have the latest state)
           git push starter refs/heads/main:refs/heads/main --force-with-lease
 
-      # Optional: push release tags like week-*
+      # Optional: publish tags like week-*
       - name: Push weekly tags (optional)
         if: always()
         run: |
