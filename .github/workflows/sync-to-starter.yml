@@ -1,0 +1,43 @@
+name: Sync main to starter
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read   # GITHUB_TOKEN for this repo
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "starter-sync-bot"
+          git config user.email "starter-sync-bot@users.noreply.github.com"
+
+      - name: Add starter remote (with token)
+        env:
+          STARTER_PUSH_TOKEN: ${{ secrets.STARTER_PUSH_TOKEN }}
+        run: |
+          git remote add starter "https://x-access-token:${STARTER_PUSH_TOKEN}@github.com/aitechinstitute/int-ai-ds-25-08-course-materials-all-int-ai-ds-25-08-template.git"
+          git remote -v
+
+      - name: Push main → starter/main
+        run: |
+          git checkout main
+          git push starter main:main --force-with-lease
+
+      # Optional: push release tags like week-*
+      - name: Push weekly tags (optional)
+        if: always()
+        run: |
+          if [ "$(git tag -l 'week-*')" != "" ]; then
+            git push starter --tags
+          fi
