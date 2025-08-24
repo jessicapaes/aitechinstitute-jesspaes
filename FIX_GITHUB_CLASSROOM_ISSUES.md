@@ -10,7 +10,7 @@ Follow these steps carefully to stay up to date.
 Tell Git where to fetch the official course materials from:
 
 ```bash
-git remote remove upstream 2>/dev/null || true
+git remote remove upstream
 git remote add upstream https://github.com/aitechinstitute/int-ai-ds-25-08-course-materials-all-int-ai-ds-25-08-template.git
 git remote -v
 ```
