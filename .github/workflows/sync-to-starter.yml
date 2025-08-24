@@ -37,14 +37,19 @@ jobs:
 
       - name: Push main → starter/main
         run: |
-          # --force-with-lease is safe; it will fail if someone changed starter/main unexpectedly
-          git push https://github.com/aitechinstitute/int-ai-ds-25-08-course-materials-all-int-ai-ds-25-08-template.git \
-                  refs/heads/main:refs/heads/main --force-with-lease
+          # Add the target repo as a remote
+          git remote add starter https://github.com/aitechinstitute/int-ai-ds-25-08-course-materials-all-int-ai-ds-25-08-template.git
+          
+          # Fetch the current state to make force-with-lease work
+          git fetch starter main
+          
+          # Push with lease (now safe because we have the latest state)
+          git push starter refs/heads/main:refs/heads/main --force-with-lease
 
       # Optional: publish tags like week-*
       - name: Push weekly tags (optional)
         if: always()
         run: |
           if [ -n "$(git tag -l 'week-*')" ]; then
-            git push https://github.com/aitechinstitute/int-ai-ds-25-08-course-materials-all-int-ai-ds-25-08-template.git --tags
+            git push starter --tags
           fi
