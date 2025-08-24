@@ -2,8 +2,8 @@ name: Sync main to starter
 
 on:
   push:
-    branches: [ main ]   # ✅ instant on push to main
-  workflow_dispatch: {}   # manual run button
+    branches: [ main ]              # instant replication on push to main
+  workflow_dispatch: {}              # manual run button
 
 permissions:
   contents: read
@@ -14,35 +14,37 @@ concurrency:
 
 jobs:
   sync:
-    # ✅ Only run in the source repo
-    if: github.repository == 'aitechinstitute/int-ai-ds-25-08-template'
+    if: github.repository == 'aitechinstitute/int-ai-ds-25-08-template'   # guard: never run on forks/starter
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source repo
+      - name: Checkout source (no bot creds)
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false   # 🔴 important: do NOT install GITHUB_TOKEN
 
       - name: Configure Git
         run: |
           git config user.name "starter-sync-bot"
           git config user.email "starter-sync-bot@users.noreply.github.com"
 
-      - name: Add starter remote (with token)
+      # Route ALL github.com traffic through your PAT (so no bot token is used)
+      - name: Use PAT for all GitHub remotes
         env:
           TOKEN: ${{ secrets.STARTER_PUSH_TOKEN }}
         run: |
-          git remote add starter "https://x-access-token:${TOKEN}@github.com/aitechinstitute/int-ai-ds-25-08-course-materials-all-int-ai-ds-25-08-template.git"
-          git fetch starter --prune
+          git config --global url."https://x-access-token:${TOKEN}@github.com/".insteadOf "https://github.com/"
 
-      - name: Push main to starter/main
+      - name: Push main → starter/main
         run: |
-          git push starter refs/heads/main:refs/heads/main --force-with-lease
+          # --force-with-lease is safe; it will fail if someone changed starter/main unexpectedly
+          git push https://github.com/aitechinstitute/int-ai-ds-25-08-course-materials-all-int-ai-ds-25-08-template.git \
+                  refs/heads/main:refs/heads/main --force-with-lease
 
       # Optional: publish tags like week-*
       - name: Push weekly tags (optional)
         if: always()
         run: |
           if [ -n "$(git tag -l 'week-*')" ]; then
-            git push starter --tags
+            git push https://github.com/aitechinstitute/int-ai-ds-25-08-course-materials-all-int-ai-ds-25-08-template.git --tags
           fi
