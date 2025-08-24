@@ -105,7 +105,7 @@ This lets you receive new materials each week.
 
 1. **Add the course “upstream” repository:**
 ```bash
-git remote add upstream https://github.com/aitechinstitute/int-ai-ds-25-08-template.git
+git remote add upstream https://github.com/aitechinstitute/int-ai-ds-25-08-course-materials-all-int-ai-ds-25-08-template.git
 ```
 2. **Verify it worked:**
 ```bash
@@ -115,8 +115,8 @@ You should see **four** lines:
 ```
 origin    https://github.com/int-ai-ds-25-08/course-materials-wvlt2.git (fetch)
 origin    https://github.com/int-ai-ds-25-08/course-materials-wvlt2.git (push)
-upstream  https://github.com/aitechinstitute/int-ai-ds-25-08-template.git (fetch)
-upstream  https://github.com/aitechinstitute/int-ai-ds-25-08-template.git (push)
+upstream  https://github.com/aitechinstitute/int-ai-ds-25-08-course-materials-all-int-ai-ds-25-08-template.git (fetch)
+upstream  https://github.com/aitechinstitute/int-ai-ds-25-08-course-materials-all-int-ai-ds-25-08-template.git (push)
 ```
 ✅ If you see these 4 lines, you’re all set!
 
@@ -210,7 +210,7 @@ You can delete your local folder and clone again:
 rm -rf course-materials-wvlt2
 git clone https://github.com/int-ai-ds-25-08/course-materials-wvlt2.git
 cd course-materials-wvlt2
-git remote add upstream https://github.com/aitechinstitute/int-ai-ds-25-08-template.git
+git remote add upstream https://github.com/aitechinstitute/int-ai-ds-25-08-course-materials-all-int-ai-ds-25-08-template.git
 ```
 
 ### What if I see “merge conflicts”?
