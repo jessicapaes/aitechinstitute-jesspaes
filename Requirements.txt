@@ -1,0 +1,16 @@
+emoji
+ipywidgets
+jupyter
+matplotlib
+numpy
+openpyxl
+pandas
+plotly
+requests
+scikit-learn
+scipy
+seaborn
+sqlalchemy
+statsmodels
+streamlit
+xlsxwriter
