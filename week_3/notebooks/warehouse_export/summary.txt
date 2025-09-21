@@ -1,0 +1,8 @@
+
+DATA WAREHOUSE SUMMARY
+==============================
+Generated: 2025-09-21 20:53
+
+Total Revenue: $12,893,189.50
+Total Customers: 1,000
+Database: data_warehouse.db

@@ -1,0 +1,7 @@
+Name,Email,Age,Salary,Phone
+John Doe,john@email.com,25,50000,123-456-7890
+jane smith,JANE@EMAIL.COM,30,"60,000",(555) 123-4567
+,invalid-email,unknown,$70000,555.123.4567
+BOB JONES,bob@email.com,45,45000,5551234567
+Mary Lee,,-5,N/A,
+,mary@email.com,35,55000,555-987-6543
