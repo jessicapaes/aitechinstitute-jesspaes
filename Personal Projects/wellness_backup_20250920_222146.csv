@@ -1,0 +1,4 @@
+id,date,tracking_reason,mood_rating,safety_level,energy_level,sleep_hours,water_intake,social_connection,daily_win,quick_mode,exercise_today,sleep_quality,stress_level,triggers_encountered,physical_symptoms,coping_strategies,notes,created_timestamp
+1,2024-01-15,🧠 Trauma recovery & PTSD healing,7,6,5,7.5,2.0,Good interactions - felt heard,Had a productive therapy session,0,Yes,6.0,4.0,Maybe,None,"Deep breathing, Journaling",Feeling more grounded today,2025-09-20 12:21:46
+2,2024-01-16,😰 Anxiety & stress management,5,7,4,6.0,1.5,Minimal social contact,Made breakfast and tidied room,1,,,,,,,Anxious morning but better afternoon,2025-09-20 12:21:46
+3,2024-01-17,🌱 General wellness & self-care,8,8,7,8.0,2.5,"Deep, meaningful connections",Had coffee with a good friend,0,Yes,8.0,3.0,No,None,"Time in nature, Meditation","Great day overall, feeling positive",2025-09-20 12:21:46
