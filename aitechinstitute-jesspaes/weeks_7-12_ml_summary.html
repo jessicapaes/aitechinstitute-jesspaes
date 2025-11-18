@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ML Journey: Weeks 7-9 Summary</title>
+    <title>ML Journey: Weeks 7-12 Summary</title>
     <style>
         * {
             margin: 0;
@@ -294,8 +294,8 @@
     <div class="container">
         <div class="header">
             <h1>🎓 Machine Learning Journey</h1>
-            <p>Your Complete Guide to Weeks 7-9</p>
-            <p style="font-size: 0.9em; margin-top: 10px;">From ML Foundations to Real-World Applications</p>
+            <p>Your Complete Guide to Weeks 7-12</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">From ML Foundations to Advanced Techniques</p>
         </div>
         
         <!-- WEEK 7 -->
@@ -641,6 +641,297 @@
             </div>
         </div>
         
+        <!-- WEEK 10 -->
+        <div class="week-section">
+            <div class="week-header">
+                <div class="week-number">10</div>
+                <div class="week-title">
+                    <h2>Time Series & Forecasting</h2>
+                    <div class="week-subtitle">Predicting the Future</div>
+                </div>
+            </div>
+            
+            <div class="topic-grid">
+                <div class="topic-card">
+                    <h3><span class="icon">📈</span>Time Series Fundamentals</h3>
+                    <ul>
+                        <li><strong>Temporal Data:</strong> Data points ordered in time</li>
+                        <li><strong>Trend:</strong> Long-term increase or decrease</li>
+                        <li><strong>Seasonality:</strong> Regular patterns that repeat</li>
+                        <li><strong>Stationarity:</strong> Statistical properties constant over time</li>
+                        <li><strong>Autocorrelation:</strong> Relationship with past values</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <h3><span class="icon">🔮</span>Forecasting Methods</h3>
+                    <ul>
+                        <li><strong>ARIMA:</strong> Classical time series model</li>
+                        <li><strong>Prophet:</strong> Facebook's forecasting tool</li>
+                        <li><strong>LSTM:</strong> Deep learning for sequences</li>
+                        <li><strong>XGBoost:</strong> Gradient boosting with time features</li>
+                        <li><strong>Exponential Smoothing:</strong> Weighted averages</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <h3><span class="icon">👥</span>Customer Analytics</h3>
+                    <ul>
+                        <li><strong>Customer Lifetime Value (CLV):</strong> Future value prediction</li>
+                        <li><strong>Churn Prediction:</strong> Who will leave?</li>
+                        <li><strong>Cohort Analysis:</strong> Group behavior over time</li>
+                        <li><strong>RFM Analysis:</strong> Recency, Frequency, Monetary</li>
+                        <li><strong>Retention Curves:</strong> Track customer retention</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="decision-tree">
+                <h4>📊 Time Series Components</h4>
+                <div class="decision-option">
+                    <strong>Trend:</strong> Overall direction (upward, downward, flat)<br>
+                    <em>Example:</em> Company revenue growing 10% per year
+                </div>
+                <div class="decision-option">
+                    <strong>Seasonality:</strong> Regular repeating patterns<br>
+                    <em>Example:</em> Retail sales spike every December
+                </div>
+                <div class="decision-option">
+                    <strong>Cyclical:</strong> Long-term waves (not fixed period)<br>
+                    <em>Example:</em> Economic boom/bust cycles
+                </div>
+                <div class="decision-option">
+                    <strong>Residual:</strong> Random noise after removing above<br>
+                    <em>Example:</em> Unexpected events, random variations
+                </div>
+            </div>
+            
+            <div class="key-takeaways">
+                <h3>Week 10 Key Takeaways</h3>
+                <ul>
+                    <li>Time series data requires special handling (temporal order matters!)</li>
+                    <li>Always check for stationarity before modeling</li>
+                    <li>Use time-based train/test splits (no shuffling!)</li>
+                    <li>Prophet is great for business forecasting with seasonality</li>
+                    <li>Customer analytics helps predict behavior and optimize retention</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- WEEK 11 -->
+        <div class="week-section">
+            <div class="week-header">
+                <div class="week-number">11</div>
+                <div class="week-title">
+                    <h2>Unsupervised Learning & Recommendations</h2>
+                    <div class="week-subtitle">Finding Hidden Patterns</div>
+                </div>
+            </div>
+            
+            <div class="topic-grid">
+                <div class="topic-card">
+                    <h3><span class="icon">🔍</span>Clustering Algorithms</h3>
+                    <ul>
+                        <li><strong>K-Means:</strong> Partition data into K clusters</li>
+                        <li><strong>Hierarchical:</strong> Build cluster tree</li>
+                        <li><strong>DBSCAN:</strong> Density-based, finds arbitrary shapes</li>
+                        <li><strong>Gaussian Mixture:</strong> Probabilistic clustering</li>
+                        <li><strong>Use Cases:</strong> Customer segmentation, anomaly detection</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <h3><span class="icon">📉</span>Dimensionality Reduction</h3>
+                    <ul>
+                        <li><strong>PCA:</strong> Principal Component Analysis</li>
+                        <li><strong>t-SNE:</strong> Visualize high-dimensional data</li>
+                        <li><strong>UMAP:</strong> Faster alternative to t-SNE</li>
+                        <li><strong>Autoencoders:</strong> Neural network compression</li>
+                        <li><strong>Goal:</strong> Reduce features, preserve information</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <h3><span class="icon">🎯</span>Recommendation Systems</h3>
+                    <ul>
+                        <li><strong>Collaborative Filtering:</strong> User-item interactions</li>
+                        <li><strong>Content-Based:</strong> Item features/attributes</li>
+                        <li><strong>Matrix Factorization:</strong> Latent factors (SVD)</li>
+                        <li><strong>Hybrid Systems:</strong> Combine multiple approaches</li>
+                        <li><strong>Cold Start Problem:</strong> New users/items challenge</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="decision-tree">
+                <h4>🎭 Supervised vs Unsupervised Learning</h4>
+                <div class="decision-option">
+                    <strong>Supervised:</strong> Have labels (y) → Learn mapping X → y<br>
+                    <em>Examples:</em> Classification, Regression (Weeks 7-9)
+                </div>
+                <div class="decision-option">
+                    <strong>Unsupervised:</strong> No labels → Find hidden structure<br>
+                    <em>Examples:</em> Clustering, Dimensionality Reduction (Week 11)
+                </div>
+                <div class="decision-option">
+                    <strong>When to use unsupervised:</strong><br>
+                    - Don't have labels<br>
+                    - Explore data structure<br>
+                    - Customer segmentation<br>
+                    - Anomaly detection<br>
+                    - Feature engineering
+                </div>
+            </div>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Algorithm</th>
+                        <th>Best For</th>
+                        <th>Limitations</th>
+                        <th>Key Parameter</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>K-Means</strong></td>
+                        <td>Large datasets, spherical clusters</td>
+                        <td>Must specify K, sensitive to outliers</td>
+                        <td>n_clusters (K)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DBSCAN</strong></td>
+                        <td>Arbitrary shapes, outlier detection</td>
+                        <td>Struggles with varying densities</td>
+                        <td>eps (neighborhood size)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hierarchical</strong></td>
+                        <td>Dendrograms, don't know K</td>
+                        <td>Slow on large datasets</td>
+                        <td>linkage method</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PCA</strong></td>
+                        <td>Linear relationships, visualization</td>
+                        <td>Only linear transformations</td>
+                        <td>n_components</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="key-takeaways">
+                <h3>Week 11 Key Takeaways</h3>
+                <ul>
+                    <li>Unsupervised learning finds patterns without labels</li>
+                    <li>Clustering is powerful for customer segmentation</li>
+                    <li>Always scale features before clustering (distances matter!)</li>
+                    <li>Use elbow method or silhouette score to choose K</li>
+                    <li>Recommendation systems combine collaborative + content-based filtering</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- WEEK 12 -->
+        <div class="week-section">
+            <div class="week-header">
+                <div class="week-number">12</div>
+                <div class="week-title">
+                    <h2>Network Analysis & Product Analytics</h2>
+                    <div class="week-subtitle">Complete ML Platform</div>
+                </div>
+            </div>
+            
+            <div class="topic-grid">
+                <div class="topic-card">
+                    <h3><span class="icon">🕸️</span>Network/Graph Analysis</h3>
+                    <ul>
+                        <li><strong>Nodes:</strong> Entities (users, products, pages)</li>
+                        <li><strong>Edges:</strong> Relationships (follows, buys, links)</li>
+                        <li><strong>Centrality:</strong> Who's most important?</li>
+                        <li><strong>Community Detection:</strong> Find groups</li>
+                        <li><strong>Social Network Analysis:</strong> Influence, clustering</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <h3><span class="icon">📱</span>Product Analytics</h3>
+                    <ul>
+                        <li><strong>User Funnels:</strong> Conversion path analysis</li>
+                        <li><strong>Cohort Analysis:</strong> Group behavior over time</li>
+                        <li><strong>A/B Testing:</strong> Compare product variants</li>
+                        <li><strong>Feature Usage:</strong> What users actually use</li>
+                        <li><strong>Retention Analysis:</strong> Who stays, who leaves</li>
+                    </ul>
+                </div>
+                
+                <div class="topic-card">
+                    <h3><span class="icon">🚀</span>ML Platform Components</h3>
+                    <ul>
+                        <li><strong>Data Pipeline:</strong> Ingest, clean, transform</li>
+                        <li><strong>Feature Store:</strong> Centralized feature repository</li>
+                        <li><strong>Model Training:</strong> Experiments, versioning</li>
+                        <li><strong>Deployment:</strong> APIs, batch predictions</li>
+                        <li><strong>Monitoring:</strong> Track performance, detect drift</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="decision-tree">
+                <h4>🏗️ Building a Complete ML System</h4>
+                <div class="decision-option">
+                    <strong>1. Data Layer:</strong><br>
+                    - Data warehouse (Snowflake, BigQuery)<br>
+                    - ETL pipelines (Airflow)<br>
+                    - Feature engineering
+                </div>
+                <div class="decision-option">
+                    <strong>2. Model Layer:</strong><br>
+                    - Experiment tracking (MLflow)<br>
+                    - Model registry<br>
+                    - Version control for models
+                </div>
+                <div class="decision-option">
+                    <strong>3. Deployment Layer:</strong><br>
+                    - REST API (FastAPI)<br>
+                    - Containerization (Docker)<br>
+                    - Scaling (Kubernetes)
+                </div>
+                <div class="decision-option">
+                    <strong>4. Monitoring Layer:</strong><br>
+                    - Performance metrics<br>
+                    - Data drift detection<br>
+                    - Alerting & logging
+                </div>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <h3 style="color: #667eea; margin-bottom: 20px;">🔄 End-to-End ML Workflow</h3>
+                <div class="workflow">
+                    <div class="workflow-step">Data Collection</div>
+                    <div class="workflow-step">Data Processing</div>
+                    <div class="workflow-step">Feature Engineering</div>
+                    <div class="workflow-step">Model Training</div>
+                    <div class="workflow-step">Model Evaluation</div>
+                    <div class="workflow-step">Model Registry</div>
+                    <div class="workflow-step">API Deployment</div>
+                    <div class="workflow-step">Monitoring</div>
+                    <div class="workflow-step">Retraining</div>
+                </div>
+            </div>
+            
+            <div class="key-takeaways">
+                <h3>Week 12 Key Takeaways</h3>
+                <ul>
+                    <li>Network analysis reveals hidden connections and influencers</li>
+                    <li>Product analytics drives data-informed product decisions</li>
+                    <li>ML systems require orchestration across multiple components</li>
+                    <li>Monitoring is critical - models degrade over time</li>
+                    <li>End-to-end platform: data → model → API → monitor → retrain</li>
+                </ul>
+            </div>
+        </div>
+        
         <!-- FINAL SUMMARY -->
         <div class="week-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
             <h2 style="color: white; text-align: center; margin-bottom: 30px;">🏆 The Big Picture</h2>
@@ -649,18 +940,21 @@
                 <h3 style="color: white; margin-bottom: 15px;">You Now Know How To:</h3>
                 <ul style="list-style: none; font-size: 1.1em;">
                     <li style="padding: 10px 0;">✅ Build prediction models that learn from data</li>
-                    <li style="padding: 10px 0;">✅ Evaluate if they're actually good (not just lucky)</li>
+                    <li style="padding: 10px 0;">✅ Evaluate models properly (not just getting lucky)</li>
                     <li style="padding: 10px 0;">✅ Use linear models for interpretable predictions</li>
                     <li style="padding: 10px 0;">✅ Use tree models for complex patterns</li>
                     <li style="padding: 10px 0;">✅ Prevent overfitting with regularization</li>
-                    <li style="padding: 10px 0;">✅ Apply everything to real messy data</li>
-                    <li style="padding: 10px 0;">✅ Choose the right algorithm for the problem</li>
+                    <li style="padding: 10px 0;">✅ Forecast future values with time series</li>
+                    <li style="padding: 10px 0;">✅ Find hidden patterns with clustering</li>
+                    <li style="padding: 10px 0;">✅ Build recommendation systems</li>
+                    <li style="padding: 10px 0;">✅ Analyze networks and relationships</li>
+                    <li style="padding: 10px 0;">✅ Deploy complete ML platforms</li>
                 </ul>
             </div>
             
             <div style="text-align: center; margin-top: 30px; font-size: 1.2em;">
                 <p><strong>🎓 Congratulations!</strong></p>
-                <p style="margin-top: 10px;">You have a complete ML toolkit to tackle real-world problems!</p>
+                <p style="margin-top: 10px;">You have mastered the complete ML toolkit - from fundamentals to production systems!</p>
             </div>
         </div>
     </div>
