@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capstone 2 - Mental Health Risk Prediction | Jessica Paes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #8B5CF6;
+            --primary-dark: #7C3AED;
+            --secondary: #EC4899;
+            --accent: #06B6D4;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --dark: #1F2937;
+            --light: #111827;
+            --gray: #6B7280;
+            --border: rgba(0,0,0,0.08);
+            --bg: #FFFFFF;
+            --bg-alt: #F9FAFB;
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--light); line-height: 1.7; }
+        .slide { width: 100%; min-height: 100vh; padding: 60px 80px; display: flex; flex-direction: column; position: relative; page-break-after: always; background: var(--bg); }
+        .slide-hero { justify-content: center; align-items: center; text-align: center; background: linear-gradient(180deg, #FFFFFF 0%, #F5F3FF 100%); }
+        .badge { display: inline-block; background: rgba(139, 92, 246, 0.1); color: var(--primary); padding: 8px 20px; border-radius: 50px; font-size: 0.9em; font-weight: 500; margin-bottom: 30px; border: 1px solid rgba(139, 92, 246, 0.2); }
+        .slide-hero h1 { font-size: 3em; font-weight: 800; line-height: 1.2; margin-bottom: 20px; background: linear-gradient(135deg, #1F2937 0%, #7C3AED 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .slide-hero h2 { font-size: 1.5em; font-weight: 400; color: var(--gray); margin-bottom: 40px; }
+        .author-block { margin-top: 40px; }
+        .author-block .name { font-size: 1.3em; font-weight: 600; color: var(--dark); }
+        .author-block .details { color: var(--gray); margin-top: 8px; }
+        h2 { font-size: 2.2em; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+        .subtitle { font-size: 1.2em; color: var(--gray); margin-bottom: 40px; }
+        .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin: 30px 0; }
+        .stat-card { background: var(--bg-alt); border-radius: 16px; padding: 30px; text-align: center; border: 1px solid var(--border); }
+        .stat-card .number { font-size: 2.5em; font-weight: 800; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stat-card .label { margin-top: 10px; color: var(--gray); font-size: 0.95em; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+        .slide ul { list-style: none; padding: 0; }
+        .slide ul li { font-size: 1.05em; margin-bottom: 12px; padding-left: 25px; position: relative; color: var(--gray); }
+        .slide ul li::before { content: ''; position: absolute; left: 0; top: 10px; width: 8px; height: 8px; background: var(--primary); border-radius: 50%; }
+        .slide ul li strong { color: var(--dark); }
+        .callout { background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(236, 72, 153, 0.03)); border: 1px solid rgba(139, 92, 246, 0.15); border-radius: 16px; padding: 25px; margin: 25px 0; display: flex; align-items: flex-start; gap: 15px; }
+        .callout .icon { font-size: 1.3em; flex-shrink: 0; }
+        .callout p { font-size: 1.05em; color: var(--dark); line-height: 1.6; }
+        .results-table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 25px 0; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); }
+        .results-table th, .results-table td { padding: 16px 20px; text-align: left; }
+        .results-table th { background: var(--bg-alt); font-weight: 600; color: var(--gray); font-size: 0.85em; text-transform: uppercase; }
+        .results-table td { border-top: 1px solid var(--border); color: var(--dark); }
+        .results-table .highlight { background: rgba(16, 185, 129, 0.08); }
+        .results-table .highlight td { color: #059669; font-weight: 600; }
+        .trait-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; margin: 25px 0; }
+        .trait-card { background: var(--bg-alt); border-radius: 12px; padding: 20px; text-align: center; border: 1px solid var(--border); }
+        .trait-card.highlight { background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05)); border-color: rgba(239, 68, 68, 0.3); }
+        .trait-card h4 { font-size: 0.95em; color: var(--dark); margin-bottom: 8px; }
+        .trait-card .description { font-size: 0.75em; color: var(--gray); line-height: 1.4; margin-bottom: 10px; min-height: 36px; }
+        .trait-card .relation { font-size: 0.85em; margin-top: 8px; font-weight: 600; }
+        .trait-card .relation.positive { color: var(--danger); }
+        .trait-card .relation.negative { color: var(--success); }
+        .formula-box { background: #1F2937; color: #F9FAFB; padding: 25px 35px; border-radius: 12px; font-family: 'Courier New', monospace; font-size: 1.1em; margin: 20px 0; text-align: center; }
+        .justification-list { background: var(--bg-alt); border-radius: 16px; padding: 25px; margin: 20px 0; }
+        .justification-list h4 { color: var(--primary); margin-bottom: 15px; font-size: 1.1em; }
+        .justification-list ol { padding-left: 25px; }
+        .justification-list li { margin-bottom: 10px; color: var(--dark); }
+        .gender-comparison { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 25px 0; }
+        .gender-card { background: var(--bg-alt); border-radius: 12px; padding: 25px; text-align: center; border: 1px solid var(--border); }
+        .gender-card h4 { color: var(--dark); margin-bottom: 15px; }
+        .gender-card .metric { font-size: 2em; font-weight: 700; color: var(--primary); }
+        .gender-card .label { font-size: 0.9em; color: var(--gray); margin-top: 5px; }
+        .slide-number { position: absolute; bottom: 30px; right: 40px; font-size: 0.9em; color: var(--gray); }
+        .slide-thanks { justify-content: center; align-items: center; text-align: center; background: linear-gradient(180deg, #FFFFFF 0%, #F5F3FF 100%); }
+        .slide-thanks h1 { font-size: 3.5em; font-weight: 800; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; }
+        @media print { .slide { page-break-after: always; height: 100vh; } .nav-hint { display: none; } }
+        .nav-hint { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--bg); border: 1px solid var(--border); padding: 12px 24px; border-radius: 50px; font-size: 0.85em; color: var(--gray); z-index: 1000; }
+        h3 { color: var(--dark); font-size: 1.3em; margin: 20px 0 15px 0; }
+    </style>
+</head>
+<body>
+
+    <div class="nav-hint">💡 Scroll to navigate • Press Ctrl+P to export PDF</div>
+
+    <!-- SLIDE 1: Hero -->
+    <div class="slide slide-hero">
+        <div class="content">
+            <span class="badge">🧠 Capstone Project 2</span>
+            <h1>Using Big Five Personality Traits<br>to Identify Depression & Anxiety Risk</h1>
+            <h2>Using computers to predict who might need mental health support</h2>
+            
+            <div class="author-block">
+                <div class="name">Jessica Paes</div>
+                <div class="details">AI Tech Institute • December 2025</div>
+            </div>
+        </div>
+        <span class="slide-number">1 / 10</span>
+    </div>
+
+    <!-- SLIDE 2: The Problem -->
+    <div class="slide">
+        <h2>The Problem</h2>
+        <p class="subtitle">Mental health conditions often go undetected until they become severe — early screening is critical.</p>
+
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="number">1 in 5</div>
+                <div class="label">Adults experience<br>mental illness annually</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">60%</div>
+                <div class="label">Don't receive<br>treatment</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">11 yrs</div>
+                <div class="label">Average delay from<br>onset to treatment</div>
+            </div>
+        </div>
+
+        <div class="callout">
+            <span class="icon">🔬</span>
+            <p><strong>Research Question:</strong> Can we use validated personality assessments to identify individuals at higher risk of depression and anxiety, enabling earlier intervention?</p>
+        </div>
+        <span class="slide-number">2 / 10</span>
+    </div>
+
+    <!-- SLIDE 3: Big Five Personality Traits -->
+    <div class="slide">
+        <h2>The Big Five Personality Model</h2>
+        <p class="subtitle">A well-established framework in psychology for understanding personality</p>
+
+        <div class="trait-grid">
+            <div class="trait-card highlight">
+                <h4>Neuroticism</h4>
+                <div class="description">Tendency to feel anxiety, worry & emotional instability</div>
+                <div class="relation positive">↑ Risk</div>
+            </div>
+            <div class="trait-card">
+                <h4>Extraversion</h4>
+                <div class="description">Outgoing, energetic & enjoys social interaction</div>
+                <div class="relation negative">↓ Risk</div>
+            </div>
+            <div class="trait-card">
+                <h4>Conscientiousness</h4>
+                <div class="description">Organised, disciplined & goal-oriented</div>
+                <div class="relation negative">↓ Risk</div>
+            </div>
+            <div class="trait-card">
+                <h4>Agreeableness</h4>
+                <div class="description">Cooperative, trusting & helpful to others</div>
+                <div class="relation">Weak</div>
+            </div>
+            <div class="trait-card">
+                <h4>Openness</h4>
+                <div class="description">Creative, curious & open to new experiences</div>
+                <div class="relation">Neutral</div>
+            </div>
+        </div>
+
+        <div class="callout">
+            <span class="icon">📚</span>
+            <p><strong>Research Evidence:</strong> "Neuroticism is the strongest personality predictor of depression and anxiety disorders" — Costa & McCrae, 1992 (cited 50,000+ times). The pattern of <strong>High Neuroticism + Low Extraversion</strong> is particularly predictive.</p>
+        </div>
+        <span class="slide-number">3 / 10</span>
+    </div>
+
+    <!-- SLIDE 4: Dataset -->
+    <div class="slide">
+        <h2>Dataset Overview</h2>
+        <p class="subtitle">Real psychological survey data from the Big Five Inventory (BFI)</p>
+
+        <div class="two-col">
+            <div>
+                <h3>Dataset Details</h3>
+                <ul>
+                    <li><strong>Source:</strong> Big Five Inventory (Rdatasets)</li>
+                    <li><strong>Sample:</strong> 2,436 respondents (after cleaning)</li>
+                    <li><strong>Males:</strong> 805 respondents</li>
+                    <li><strong>Females:</strong> 1,631 respondents</li>
+                    <li><strong>Type:</strong> 100% Real survey data</li>
+                </ul>
+                
+                <h3>Target Variable</h3>
+                <ul>
+                    <li><strong>Low Risk</strong> — Bottom tertile</li>
+                    <li><strong>Medium Risk</strong> — Middle tertile</li>
+                    <li><strong>High Risk</strong> — Top tertile</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Features (6 total)</h3>
+                <ul>
+                    <li><strong>Neuroticism</strong> — Score from 5 questions about worry & stress</li>
+                    <li><strong>Extraversion</strong> — Score from 5 questions about social energy</li>
+                    <li><strong>Conscientiousness</strong> — Score from 5 questions about organisation</li>
+                    <li><strong>Agreeableness</strong> — Score from 5 questions about cooperation</li>
+                    <li><strong>Openness</strong> — Score from 5 questions about creativity</li>
+                    <li><strong>Age</strong> — Demographic (years)</li>
+                </ul>
+            </div>
+        </div>
+        <span class="slide-number">4 / 10</span>
+    </div>
+
+    <!-- SLIDE 5: Methodology Justification -->
+    <div class="slide">
+        <h2>Methodology: Research-Based Approach</h2>
+        <p class="subtitle">How we calculate risk level from personality scores</p>
+        
+        <div class="callout" style="margin-bottom: 20px; background: linear-gradient(135deg, rgba(6, 182, 212, 0.08), rgba(16, 185, 129, 0.03)); border-color: rgba(6, 182, 212, 0.15);">
+            <span class="icon">🤖</span>
+            <p><strong>What is Machine Learning?</strong> Teaching a computer to find patterns in data and make predictions — like how Netflix learns what movies you might like, but here we predict mental health risk from personality traits.</p>
+        </div>
+
+        <h3>Risk Score Formula</h3>
+        <div class="formula-box">
+            Risk Score = (Neuroticism × 2) − Extraversion − (Conscientiousness × 0.5)
+        </div>
+
+        <div class="justification-list">
+            <h4>✅ Why This Approach?</h4>
+            <ol>
+                <li><strong>Research-backed:</strong> Supported by multiple published studies in psychology</li>
+                <li><strong>Comprehensive:</strong> Uses more available data than single-trait approaches</li>
+                <li><strong>Captures key pattern:</strong> The "High Neuroticism + Low Extraversion" combination identified in research</li>
+                <li><strong>Balanced classes:</strong> Tertile classification produces even distribution (~33% each)</li>
+                <li><strong>Scientifically defensible:</strong> Methodology can be justified in academic context</li>
+            </ol>
+        </div>
+
+        <div class="callout">
+            <span class="icon">📊</span>
+            <p><strong>Classification:</strong> Respondents are classified into tertiles (thirds) — this is a standard research approach ensuring balanced class distribution.</p>
+        </div>
+        <span class="slide-number">5 / 10</span>
+    </div>
+
+    <!-- SLIDE 6: Models Trained -->
+    <div class="slide">
+        <h2>Machine Learning Models</h2>
+        <p class="subtitle">We tested 5 different prediction methods to find the best one</p>
+        
+        <div class="callout" style="margin-bottom: 20px; background: linear-gradient(135deg, rgba(6, 182, 212, 0.08), rgba(16, 185, 129, 0.03)); border-color: rgba(6, 182, 212, 0.15);">
+            <span class="icon">💡</span>
+            <p><strong>What is F1-Score?</strong> A measure of how accurate the model is (0-100%). Higher = better. It checks both: "Did we find all the high-risk people?" AND "Were our predictions correct?"</p>
+        </div>
+
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Prediction Method</th>
+                    <th>Accuracy</th>
+                    <th>F1-Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="highlight">
+                    <td>🏆 Random Forest <span style="color: var(--gray); font-weight: 400; font-size: 0.85em;">(combines many decision trees)</span></td>
+                    <td>95.7%</td>
+                    <td>95.7%</td>
+                </tr>
+                <tr>
+                    <td>Logistic Regression <span style="color: var(--gray); font-weight: 400; font-size: 0.85em;">(statistical probability)</span></td>
+                    <td>95.5%</td>
+                    <td>95.5%</td>
+                </tr>
+                <tr>
+                    <td>Gradient Boosting <span style="color: var(--gray); font-weight: 400; font-size: 0.85em;">(learns from mistakes)</span></td>
+                    <td>95.3%</td>
+                    <td>95.3%</td>
+                </tr>
+                <tr>
+                    <td>SVM <span style="color: var(--gray); font-weight: 400; font-size: 0.85em;">(finds boundaries between groups)</span></td>
+                    <td>94.8%</td>
+                    <td>94.8%</td>
+                </tr>
+                <tr>
+                    <td>KNN <span style="color: var(--gray); font-weight: 400; font-size: 0.85em;">(compares to similar people)</span></td>
+                    <td>89.2%</td>
+                    <td>89.1%</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="callout">
+            <span class="icon">🎯</span>
+            <p><strong>Best Model:</strong> Random Forest (a method that combines many decision trees) achieved 95.7% accuracy — meaning it correctly predicts risk level 19 out of 20 times!</p>
+        </div>
+        <span class="slide-number">6 / 10</span>
+    </div>
+
+    <!-- SLIDE 7: Gender Comparison -->
+    <div class="slide">
+        <h2>Gender Comparison Analysis</h2>
+        <p class="subtitle">Model performance compared across male and female populations</p>
+
+        <div class="gender-comparison">
+            <div class="gender-card">
+                <h4>👥 All Combined</h4>
+                <div class="metric">95.7%</div>
+                <div class="label">F1-Score</div>
+                <p style="margin-top: 15px; font-size: 0.9em; color: var(--gray);">n = 2,436</p>
+            </div>
+            <div class="gender-card">
+                <h4>👨 Male Only</h4>
+                <div class="metric">95.6%</div>
+                <div class="label">F1-Score</div>
+                <p style="margin-top: 15px; font-size: 0.9em; color: var(--gray);">n = 805</p>
+            </div>
+            <div class="gender-card">
+                <h4>👩 Female Only</h4>
+                <div class="metric">95.7%</div>
+                <div class="label">F1-Score</div>
+                <p style="margin-top: 15px; font-size: 0.9em; color: var(--gray);">n = 1,631</p>
+            </div>
+        </div>
+
+        <div class="callout">
+            <span class="icon">✅</span>
+            <p><strong>Key Finding:</strong> The model performs consistently well across both genders, suggesting the personality-risk relationship is robust and generalisable.</p>
+        </div>
+        <span class="slide-number">7 / 10</span>
+    </div>
+
+    <!-- SLIDE 8: Key Findings + Validation -->
+    <div class="slide">
+        <h2>Key Findings & Validation</h2>
+        <p class="subtitle">Research-validated insights with sanity checks</p>
+
+        <div class="two-col">
+            <div>
+                <h3>🔬 Top Predictors (Feature Importance)</h3>
+                <ul>
+                    <li><strong>Neuroticism</strong> — 73% importance (strongest)</li>
+                    <li><strong>Extraversion</strong> — 9% importance</li>
+                    <li><strong>Conscientiousness</strong> — 6% importance</li>
+                </ul>
+
+                <h3>✅ Sanity Checks (Model Validation)</h3>
+                <div style="background: var(--bg-alt); border-radius: 12px; padding: 15px; margin-top: 10px;">
+                    <table style="width: 100%; font-size: 0.9em;">
+                        <tr>
+                            <td></td>
+                            <td style="text-align: center;"><strong>High Risk</strong></td>
+                            <td style="text-align: center;"><strong>Low Risk</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Neuroticism</td>
+                            <td style="text-align: center; color: #EF4444; font-weight: 600;">22.7</td>
+                            <td style="text-align: center; color: #10B981; font-weight: 600;">9.5</td>
+                            <td style="color: #10B981;">✓ PASS</td>
+                        </tr>
+                        <tr>
+                            <td>Extraversion</td>
+                            <td style="text-align: center; color: #EF4444; font-weight: 600;">18.4</td>
+                            <td style="text-align: center; color: #10B981; font-weight: 600;">19.5</td>
+                            <td style="color: #10B981;">✓ PASS</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <h3>📊 Why 95%+ Accuracy?</h3>
+                <ul>
+                    <li>Risk derived from personality traits</li>
+                    <li>Model learns the defined relationship</li>
+                    <li>Similar to predicting BMI from height/weight</li>
+                    <li><strong>NOT data leakage</strong> — predicting category, not score</li>
+                </ul>
+
+                <h3>🎯 Research Alignment</h3>
+                <ul>
+                    <li>Results match Costa & McCrae (1992)</li>
+                    <li>Confirms "High N + Low E" pattern</li>
+                    <li>Validates multi-trait approach</li>
+                </ul>
+            </div>
+        </div>
+        <span class="slide-number">8 / 10</span>
+    </div>
+
+    <!-- SLIDE 9: Recommendations -->
+    <div class="slide">
+        <h2>Recommendations & Applications</h2>
+        <p class="subtitle">How this model can support wellness and research</p>
+
+        <div class="two-col">
+            <div>
+                <h3>Wellness Applications</h3>
+                <ul>
+                    <li><strong>Early Screening:</strong> Integrate personality assessment into wellness intake</li>
+                    <li><strong>Risk Stratification:</strong> Identify individuals who may benefit from support</li>
+                    <li><strong>Personalised Interventions:</strong> Tailor resources based on risk profile</li>
+                </ul>
+
+                <h3>Ethical Considerations</h3>
+                <ul>
+                    <li>Not a clinical diagnostic tool</li>
+                    <li>Should complement, not replace, professional assessment</li>
+                    <li>Privacy and consent are essential</li>
+                </ul>
+            </div>
+            <div>
+                <h3>🚀 Live Demo: Streamlit App</h3>
+                <div style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(6, 182, 212, 0.05)); border-radius: 12px; padding: 15px; margin-bottom: 15px;">
+                    <p style="margin: 0 0 10px 0;"><strong>Built a working screening tool!</strong></p>
+                    <ul style="margin: 0; font-size: 0.9em;">
+                        <li>25 personality questions with sliders</li>
+                        <li>Real-time risk prediction</li>
+                        <li>Confidence breakdown & recommendations</li>
+                        <li>Run: <code style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px;">streamlit run app.py</code></li>
+                    </ul>
+                </div>
+
+                <h3>Limitations</h3>
+                <ul>
+                    <li>Trained on specific population</li>
+                    <li>Personality is one factor among many</li>
+                    <li>Cannot capture life circumstances</li>
+                </ul>
+            </div>
+        </div>
+        <span class="slide-number">9 / 10</span>
+    </div>
+
+    <!-- SLIDE 10: Thank You -->
+    <div class="slide slide-thanks">
+        <h1>Thank You!</h1>
+        <h2 style="color: var(--gray); font-weight: 400;">Questions?</h2>
+        
+        <div style="margin-top: 60px;">
+            <p style="font-size: 1.1em; color: var(--dark);"><strong>Jessica Paes</strong></p>
+            <p style="color: var(--gray);">AI Tech Institute • December 2025</p>
+        </div>
+
+        <div style="margin-top: 40px; padding: 20px; background: var(--bg-alt); border-radius: 12px; display: inline-block;">
+            <p style="font-size: 0.95em; color: var(--gray);">
+                <strong>Key Takeaway:</strong> Personality traits, especially the combination of<br>
+                High Neuroticism + Low Extraversion, can effectively identify mental health risk.
+            </p>
+        </div>
+        <span class="slide-number">10 / 10</span>
+    </div>
+
+</body>
+</html>

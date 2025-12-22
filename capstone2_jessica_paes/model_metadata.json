@@ -1,0 +1,24 @@
+{
+  "model_type": "RandomForestClassifier",
+  "best_params": {
+    "max_depth": 20,
+    "min_samples_split": 5,
+    "n_estimators": 200
+  },
+  "f1_score": 0.9659994028817447,
+  "features": [
+    "neuroticism_score",
+    "extraversion_score",
+    "conscientiousness_score",
+    "agreeableness_score",
+    "openness_score",
+    "age"
+  ],
+  "target_classes": [
+    "High Risk",
+    "Low Risk",
+    "Medium Risk"
+  ],
+  "training_samples": 2240,
+  "test_samples": 560
+}
